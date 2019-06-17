@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import posixpath
+from django.conf.urls.static import static
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -37,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'autogeeks.blog',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -53,8 +54,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'autogeeks.urls'
 
 TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    { 'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -119,8 +119,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = 'staticfiles'
-STATICFILEES_DIRS = {
-    os.path.join(BASE_DIR, 'static')
-}
+STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
